@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1800;
+            height: 1000;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#FFC300", "font": "20px bold verdana", "id": 0, "label": "ALLISSON VIANNA MOUSINHO", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightgreen\u0027\u003e\u003cp\u003eCPF: ***291531**\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 1, "label": "DEPARTAMENTO ESTADUAL DE TR\u00c2NSITO - DETRAN ", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 26752857000151\u003c/p\u003e\u003cp\u003eGestor: PAULO ROBERTO MELO DE CASTRO NOGUEIRA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 2, "label": "FUNDO MUNICIPAL DA ASSIST\u00caNCIA SOCIAL DE TAIPAS DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 13593060000107\u003c/p\u003e\u003cp\u003eGestor: ADELIA CARVALHO RIBEIRO\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 3, "label": "FUNDO MUNICIPAL DE ASSISTENCIA SOCIAL DE TOCANT\u00cdNIA", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 13301384000124/p\u003e\u003cp\u003eGestor: ANA PAULA RIBEIRO DE ANDRADE OLIVEIRA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 4, "label": "FUNDO MUNICIPAL DE ASSIST\u00caNCIA SOCIAL DE CENTEN\u00c1RIO", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 13554247000100\u003c/p\u003e\u003cp\u003eGestor: MARIA DA SOLIDADE SOARES BRITO\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 5, "label": "FUNDO MUNICIPAL DE EDUCACAO DE TOCANTINIA ", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 17341668000103\u003c/p\u003e\u003cp\u003eGestor: ANDRE RIBEIRO DE GOVEIA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 6, "label": "FUNDO MUNICIPAL DE EDUCA\u00c7\u00c3O DE COLINAS DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 13244984000106\u003c/p\u003e\u003cp\u003eGestor: ODALEA BARBOSA DE SOUSA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 7, "label": "FUNDO MUNICIPAL DE SA\u00daDE DE CENTEN\u00c1RIO", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 12013802000115\u003c/p\u003e\u003cp\u003eGestor: JANIO SOARES MARTINS\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 8, "label": "FUNDO MUNICIPAL DE SA\u00daDE DE COLINAS DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 11359904000124\u003c/p\u003e\u003cp\u003eGestor: AMANDA FERNANDES TORQUATO GUIMARAES\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 9, "label": "FUNDO MUNICIPAL DE SA\u00daDE DE CRISTAL\u00c2NDIA", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 11277989000100\u003c/p\u003e\u003cp\u003eGestor: WILKEY FERNANDO LOURENCO DE OLIVEIRA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 10, "label": "FUNDO MUNICIPAL DE SA\u00daDE DE GOIANORTE", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 11438307000195/p\u003e\u003cp\u003eGestor: JOSE HELENILSON RESPLANDES ARAUJO\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 11, "label": "FUNDO MUNICIPAL DE SA\u00daDE DE SILVAN\u00d3POLIS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 11467851000165\u003c/p\u003e\u003cp\u003eGestor: ADEUSVI MOREIRA DOS SANTOS\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 12, "label": "FUNDO MUNICIPAL DE SA\u00daDE DE TAIPAS DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 12051093000162\u003c/p\u003e\u003cp\u003eGestor: MANOEL RODRIGUES PEREIRA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#FF5733", "font": "20px bold verdana", "id": 13, "label": "LOCADORA DE VEICULOS ARAGUAIA LTDA", "shape": "dot", "title": "\u003cdiv style=\"width:200px;\"\u003e\u003cp\u003eCNPJ: 01419973000101419973\u003c/p\u003e\u003cp\u003ePorte:  DEMAIS\u003c/p\u003e \u003cp\u003eEndere\u00e7o:  QUADRA 404 SUL, AVENIDA LO 11, LOTE 05 S/N SALA 02 PLANO DIRETOR SUL 77021640 9733-TO\u003c/p\u003e\u003cp\u003eSitua\u00e7\u00e3o Cadastral:  ATIVA\u003c/p\u003e\u003cp\u003eData da Situa\u00e7\u00e3o:  20051103\u003c/p\u003e\u003cdiv style=\"background-color:lightblue\"\u003e\u003cp\u003eSimples: -\u003c/p\u003e\u003cp\u003eDt Inclus\u00e3o:  -\u003c/p\u003e\u003cp\u003eDt Exclus\u00e3o:  -\u003c/p\u003e\u003c/div\u003e\u003c/div\u003e"}, {"color": "#FFC300", "font": "20px bold verdana", "id": 14, "label": "OSEMAR CRUZ MOUZINHO", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightgreen\u0027\u003e\u003cp\u003eCPF: ***341191**\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 15, "label": "PREFEITURA MUNICIPAL DE ALIAN\u00c7A DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 25042219000184\u003c/p\u003e\u003cp\u003eGestor: ELVES MOREIRA GUIMARAES\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 16, "label": "PREFEITURA MUNICIPAL DE BOM JESUS DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 37420775000126\u003c/p\u003e\u003cp\u003eGestor: PAULO HERNANDES MOURA LIMA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 17, "label": "PREFEITURA MUNICIPAL DE CARIRI DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 37344397000149/p\u003e\u003cp\u003eGestor: VANDERLEI ANTONIO DE CARVALHO JUNIOR\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 18, "label": "PREFEITURA MUNICIPAL DE CENTEN\u00c1RIO", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 37420676000144\u003c/p\u003e\u003cp\u003eGestor: FOCILIDES CARVALHO SILVA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 19, "label": "PREFEITURA MUNICIPAL DE COLINAS DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 01795483000120\u003c/p\u003e\u003cp\u003eGestor: JOSEMAR CARLOS CASARIN\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 20, "label": "PREFEITURA MUNICIPAL DE CONCEI\u00c7\u00c3O DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 01067149000150\u003c/p\u003e\u003cp\u003eGestor: JOAO PAULO FERNANDES COSTA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 21, "label": "PREFEITURA MUNICIPAL DE CRISTAL\u00c2NDIA", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 01067156000152\u003c/p\u003e\u003cp\u003eGestor: WILSON JUNIOR CARVALHO DE OLIVEIRA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 22, "label": "PREFEITURA MUNICIPAL DE DIVIN\u00d3POLIS DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 24851461000136/p\u003e\u003cp\u003eGestor: FLAVIO RODRIGUES SILVA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 23, "label": "PREFEITURA MUNICIPAL DE FIGUEIR\u00d3POLIS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 00003848000174/p\u003e\u003cp\u003eGestor: JAKELINE PEREIRA DOS SANTOS\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 24, "label": "PREFEITURA MUNICIPAL DE ITACAJ\u00c1", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 02411726000142/p\u003e\u003cp\u003eGestor: MARIA APARECIDA LIMA ROCHA COSTA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 25, "label": "PREFEITURA MUNICIPAL DE LAJEADO", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 37420650000104\u003c/p\u003e\u003cp\u003eGestor: ANTONIO LUIZ BANDEIRA JUNIOR\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 26, "label": "PREFEITURA MUNICIPAL DE LIZARDA", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 02070571000128/p\u003e\u003cp\u003eGestor: SUELENE LUSTOSA MATOS\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 27, "label": "PREFEITURA MUNICIPAL DE MONTE DO CARMO", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 01067891000166/p\u003e\u003cp\u003eGestor: ARQUIVARDES AVELINO RIBEIRO\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 28, "label": "PREFEITURA MUNICIPAL DE RECURSOL\u00c2NDIA", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 37421146000110\u003c/p\u003e\u003cp\u003eGestor: CARLOS VINICIUS BARBOSA DA SILVA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 29, "label": "PREFEITURA MUNICIPAL DE RIO SONO", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 00000729000168\u003c/p\u003e\u003cp\u003eGestor: ITAIR GOMES MARTINS\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 30, "label": "PREFEITURA MUNICIPAL DE SANTA ROSA DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 24851503000139\u003c/p\u003e\u003cp\u003eGestor: LEVI TEIXEIRA DE OLIVEIRA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 31, "label": "PREFEITURA MUNICIPAL DE SILVAN\u00d3POLIS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 00114819000180\u003c/p\u003e\u003cp\u003eGestor: GERNIVON ADAO PEREIRA ROSA\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 32, "label": "PREFEITURA MUNICIPAL DE S\u00c3O F\u00c9LIX DO TOCANTINS", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 26753145000157/p\u003e\u003cp\u003eGestor: CARLOS IRAEL RIBEIRO DOS REIS\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 33, "label": "PREFEITURA MUNICIPAL DE TABOC\u00c3O", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 37421112000126\u003c/p\u003e\u003cp\u003eGestor: WAGNER TEIXEIRA DE FARIAS\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 34, "label": "PREFEITURA MUNICIPAL DE TOCANT\u00cdNIA", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 02070712000102/p\u003e\u003cp\u003eGestor: MANOEL SILVINO GOMES NETO\u003c/p\u003e\u003c/div\u003e"}, {"color": "#C70039", "font": "20px bold verdana", "id": 35, "label": "PREFEITURA MUNICIPAL DE TUPIRAMA", "shape": "dot", "title": "\u003cdiv style=\u0027width:200px;background-color:lightred\u0027\u003e\u003cp\u003eCNPJ: 01613619000134\u003c/p\u003e\u003cp\u003eGestor: ORMANDO BRITO ALVES\u003c/p\u003e\u003c/div\u003e"}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": 14, "label": "S\u00f3cio-Administrador desde 11/09/1996", "to": 13, "weight": 100}, {"arrows": "to", "from": 0, "label": "S\u00f3cio desde 11/09/1996", "to": 13, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 14/01/2020", "to": 7, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 04/02/2020", "to": 28, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 10/02/2020", "to": 31, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 22/01/2021", "to": 31, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 24/04/2020", "to": 30, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 28/12/2021", "to": 30, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 15/05/2020", "to": 25, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 03/04/2020", "to": 24, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 12/08/2020", "to": 10, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 21/02/2020", "to": 15, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 06/03/2020", "to": 5, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 21/06/2021", "to": 5, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 15/01/2020", "to": 33, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 08/03/2021", "to": 27, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 01/03/2021", "to": 35, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 30/03/2021", "to": 35, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 22/02/2021", "to": 29, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 30/03/2021", "to": 23, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 03/03/2021", "to": 34, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 30/03/2021", "to": 17, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 28/04/2021", "to": 20, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 29/04/2021", "to": 32, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 20/05/2021", "to": 21, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 30/04/2021", "to": 22, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 18/06/2021", "to": 3, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 15/07/2021", "to": 26, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 21/09/2021", "to": 9, "weight": 100}, {"arrows": "to", "from": 13, "label": "Participou de licita\u00e7\u00e3o publicada em 15/02/2022", "to": 18, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (25/02/2021 a 31/12/2021)", "to": 29, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (12/02/2020 a 31/12/2020)", "to": 31, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (03/05/2021 a 31/12/2021)", "to": 20, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (25/05/2021 a 31/12/2021)", "to": 21, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (05/04/2021 a 31/12/2021)", "to": 35, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (28/10/2020 a 31/12/2020)", "to": 19, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (23/09/2021 a 23/09/2022)", "to": 9, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (28/10/2020 a 31/12/2020)", "to": 8, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (14/08/2020 a 31/12/2020)", "to": 11, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (03/05/2021 a 31/12/2021)", "to": 11, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (21/01/2020 a 31/12/2020)", "to": 7, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (24/02/2021 a 24/05/2021)", "to": 7, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (01/04/2020 a 01/06/2020)", "to": 12, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (28/10/2020 a 31/12/2020)", "to": 6, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (24/02/2021 a 24/05/2021)", "to": 4, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (01/06/2020 a 30/11/2020)", "to": 2, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (02/08/2021 a 31/12/2021)", "to": 5, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (28/04/2020 a 30/12/2020)", "to": 30, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (03/01/2022 a 31/12/2022)", "to": 30, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (03/01/2022 a 31/12/2022)", "to": 30, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (01/04/2022 a 30/04/2023)", "to": 30, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (01/04/2022 a 30/04/2023)", "to": 30, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (09/09/2020 a 31/12/2020)", "to": 15, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (09/03/2020 a 31/12/2020)", "to": 15, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (09/03/2020 a 31/12/2020)", "to": 15, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (19/05/2020 a 18/05/2021)", "to": 1, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (28/05/2020 a 31/12/2020)", "to": 25, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (28/05/2020 a 31/12/2020)", "to": 25, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (28/05/2020 a 31/12/2020)", "to": 25, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (02/01/2020 a 31/12/2020)", "to": 18, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (02/01/2020 a 31/12/2020)", "to": 18, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (18/06/2020 a 18/07/2020)", "to": 18, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (24/08/2020 a 31/12/2020)", "to": 18, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (08/03/2022 a 31/12/2022)", "to": 18, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (08/03/2022 a 31/12/2022)", "to": 18, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (03/09/2021 a 03/09/2022)", "to": 16, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (17/03/2020 a 31/12/2020)", "to": 33, "weight": 100}, {"arrows": "to", "from": 13, "label": "Possui contrato (11/02/2020 a 31/12/2020)", "to": 28, "weight": 100}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "nodeDistance": 220,
+            "springConstant": 0.05,
+            "springLength": 550
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
